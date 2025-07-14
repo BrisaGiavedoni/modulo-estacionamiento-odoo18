@@ -1,4 +1,5 @@
-from odoo import models, fields, api, exceptions
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError # Correcto
 from datetime import timedelta
 
 class EstacionamientoMovimiento(models.Model):
@@ -7,8 +8,8 @@ class EstacionamientoMovimiento(models.Model):
     _order = "fecha_entrada desc"
 
     cliente_id = fields.Many2one(
-        'estacionamiento.cliente', 
-        string='Cliente', 
+        'estacionamiento.cliente',
+        string='Cliente',
         required=True
     )
 
@@ -26,7 +27,7 @@ class EstacionamientoMovimiento(models.Model):
     )
 
     fecha_entrada = fields.Datetime(
-        string="Fecha de entrada", 
+        string="Fecha de entrada",
         default=fields.Datetime.now
     )
 
@@ -36,8 +37,8 @@ class EstacionamientoMovimiento(models.Model):
     ], default='30', string="Duración")
 
     fecha_salida = fields.Datetime(
-        string="Fecha de salida", 
-        compute='_compute_fecha_salida', 
+        string="Fecha de salida",
+        compute='_compute_fecha_salida',
         store=True
     )
 
@@ -53,13 +54,12 @@ class EstacionamientoMovimiento(models.Model):
                 dias = 15 if rec.duracion == '15' else 30
                 rec.fecha_salida = rec.fecha_entrada + timedelta(days=dias)
 
-
     @api.constrains('fecha_entrada', 'fecha_salida')
     def _check_fechas(self):
         for rec in self:
             if rec.fecha_entrada and rec.fecha_salida:
                 if rec.fecha_salida < rec.fecha_entrada:
-                    raise exceptions.ValidationError("La salida no puede ser antes que la entrada.")
+                    raise ValidationError("La salida no puede ser antes que la entrada.")
 
     @api.constrains('vehiculo_id')
     def _check_vehiculo_ya_estacionado(self):
@@ -70,8 +70,7 @@ class EstacionamientoMovimiento(models.Model):
                 ('fecha_salida', '>', fields.Datetime.now())
             ])
             if existe:
-                raise exceptions.ValidationError("Este vehículo ya está estacionado actualmente.")
-
+                raise ValidationError("Este vehículo ya está estacionado actualmente.") 
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -79,11 +78,10 @@ class EstacionamientoMovimiento(models.Model):
         for movimiento in movimientos:
 
             if movimiento.lugar_id.estado != 'Libre':
-                raise exceptions.ValidationError("El lugar seleccionado ya está ocupado.")
+                raise ValidationError("El lugar seleccionado ya está ocupado.") 
 
-            
             if not movimiento.vehiculo_id.cliente_id.mensualidad_pagada:
-                raise exceptions.ValidationError(
+                raise ValidationError( 
                     f"El cliente del vehículo {movimiento.vehiculo_id.patente} no tiene la mensualidad paga."
                 )
 
@@ -91,14 +89,14 @@ class EstacionamientoMovimiento(models.Model):
 
         return movimientos
 
-
     def registrar_salida(self):
         for rec in self:
+            
             rec.fecha_salida = fields.Datetime.now()
             rec.lugar_id.estado = 'Libre'
 
     @api.constrains('vehiculo_id')
     def _check_mensualidad_pagada(self):
-     for rec in self:
-        if not rec.vehiculo_id.cliente_id.mensualidad_pagada:
-            raise ValidationError("El cliente no tiene la mensualidad al día.")        
+       for rec in self:
+         if not rec.vehiculo_id.cliente_id.mensualidad_pagada:
+             raise ValidationError("El cliente no tiene la mensualidad al día.")
