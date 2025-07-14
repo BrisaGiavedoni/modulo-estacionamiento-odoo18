@@ -91,7 +91,6 @@ class EstacionamientoMovimiento(models.Model):
 
     def registrar_salida(self):
         for rec in self:
-            
             rec.fecha_salida = fields.Datetime.now()
             rec.lugar_id.estado = 'Libre'
 
