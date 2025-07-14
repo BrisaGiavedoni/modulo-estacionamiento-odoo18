@@ -1,12 +1,15 @@
+![Ubiar Logo](https://media.licdn.com/dms/image/v2/C4D0BAQGmmmyqM7A60g/company-logo_200_200/company-logo_200_200/0/1658158465289/ubiar_logo?e=2147483647&v=beta&t=oeNOv59y7so9jDH-Cpbn6bs2YLIHWz4IU4xUjEdq1xE)
+
+
 # Módulo de Estacionamiento Odoo 18
 
 Este módulo de Odoo 18 proporciona un sistema básico y funcional para la gestión de estacionamientos, permitiendo registrar la entrada y salida de vehículos, asignar lugares y validar la mensualidad de los clientes.
 
 ## Características Principales
 
-* [cite_start]**Registro de Movimientos:** Permite registrar la entrada y salida de vehículos con fecha y hora. [cite: 5]
-* [cite_start]**Gestión de Lugares:** Asigna vehículos a lugares específicos y valida la disponibilidad de los mismos. [cite: 5, 7]
-* [cite_start]**Control de Mensualidades:** Verifica si el cliente asociado al vehículo tiene su mensualidad al día antes de permitir el estacionamiento. [cite: 6]
+* **Registro de Movimientos:** Permite registrar la entrada y salida de vehículos con fecha y hora.
+* **Gestión de Lugares:** Asigna vehículos a lugares específicos y valida la disponibilidad de los mismos.
+* **Control de Mensualidades:** Verifica si el cliente asociado al vehículo tiene su mensualidad al día antes de permitir el estacionamiento.
 * **Visión General del Estado:** Muestra un resumen de la ocupación del estacionamiento (total de lugares, ocupados, libres).
 * **Información de Clientes y Vehículos:** Gestión de datos de clientes y sus vehículos asociados.
 
@@ -64,5 +67,3 @@ Este módulo fue desarrollado como parte de un **desafío de hackathon organizad
 Si tienes preguntas o necesitas soporte, puedes contactar a:
 
 * Brisa Giavedoni
-
----
