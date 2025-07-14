@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<odoo>
+
+  <!--Acciones-->
+
+  <record id="estacionamiento_cliente_accion" model="ir.actions.act_window">
+    <field name="name">Clientes</field>
+    <field name="res_model">estacionamiento.cliente</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+  <record id="estacionamiento_vehiculo_accion" model="ir.actions.act_window">
+    <field name="name">Vehiculos</field>
+    <field name="res_model">estacionamiento.vehiculo</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+  <record id="estacionamiento_lugar_accion" model="ir.actions.act_window">
+    <field name="name">Lugares</field>
+    <field name="res_model">estacionamiento.lugar</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+ <record id="estacionamiento_movimiento_accion" model="ir.actions.act_window">
+    <field name="name">Movimientos</field>
+    <field name="res_model">vehiculo.movimiento</field>
+    <field name="view_mode">list,form</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="context">{}</field>
+  </record>
+
+  <record id="estado_estacionamiento_accion" model="ir.actions.act_window">
+    <field name="name">Estado General</field>
+    <field name="res_model">estacionamiento.estado</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+  <!--Vistas-->
+
+  <record id="estacionamiento_cliente_vista_listado" model="ir.ui.view">
+    <field name="name">Lista de Clientes</field>
+    <field name="model">estacionamiento.cliente</field>
+    <field name="arch" type="xml">
+      <list string="Clientes">
+            <field name="nombre"/>
+            <field name="dni"/>
+            <field name="email"/>
+        </list>
+    </field>
+  </record>
+
+  <record id="estacionamiento_cliente_vista_form" model="ir.ui.view">
+    <field name="name">estacionamiento.cliente.form</field>
+    <field name="model">estacionamiento.cliente</field>
+    <field name="arch" type="xml">
+      <form string="Cliente">
+        <sheet>
+          <group>
+            <field name="nombre"/>
+            <field name="dni"/>
+            <field name="email"/>
+            <field name="mensualidad_pagada"/>
+          </group>
+        </sheet>
+        <header>
+          <button name="action_movimientos" type="object" string="Movimientos" class="oe_stat_button" icon="fa-car"/>
+        </header>
+      </form>
+    </field>
+  </record>
+
+
+  <record id="estacionamiento_vehiculo_vista_listado" model="ir.ui.view">
+    <field name="name">Lista de Vehiculos</field>
+    <field name="model">estacionamiento.vehiculo</field>
+    <field name="arch" type="xml">
+      <list string="Vehiculo">
+        <field name="cliente_id"/>
+        <field name="patente"/>
+        <field name="modelo"/>
+      </list>  
+    </field>
+  </record>
+
+
+
+  <record id="estacionamiento_vehiculo_vista_form" model="ir.ui.view">
+    <field name="name">Formulario de Vehiculos</field>
+    <field name="model">estacionamiento.vehiculo</field>
+    <field name="arch" type="xml">
+      <form>
+        <group>
+          <field name= "patente"/>
+          <field name= "modelo"/>
+          <field name= "cliente_id"/>
+        </group> 
+      </form>
+    </field>
+  </record>
+
+   
+  <record id="estacionamiento_lugar_vista_listado" model="ir.ui.view">
+    <field name="name">Lista lugar de estacionamiento</field>
+    <field name="model">estacionamiento.lugar</field>
+    <field name="arch" type="xml">
+      <list >
+        <field name="nombre"/>
+        <field name="estado" readonly="1"/>
+      </list>  
+    </field>
+  </record>
+
+  <record id="estacionamiento_lugar_vista_form" model="ir.ui.view">
+    <field name="name">Formulario lugar de estacionamiento</field>
+    <field name="model">estacionamiento.lugar</field>
+    <field name="arch" type="xml">
+      <form>
+        <group>
+          <field name= "nombre"/>
+          <field name= "estado"/>
+        </group> 
+      </form>
+    </field>
+  </record>
+
+  <record id="estacionamiento_movimiento_vista_listado" model="ir.ui.view">
+    <field name="name">Movimiento de vehiculos</field>
+    <field name="model">vehiculo.movimiento</field>
+    <field name="arch" type="xml">
+      <list >
+        <field name="cliente_id"/>
+        <field name="vehiculo_id"/>
+        <field name="lugar_id"/>
+        <field name="fecha_entrada"/>
+        <field name="fecha_salida"/>
+        <field name="duracion"/>
+      </list>  
+    </field>
+  </record>
+
+  <record id="estacionamiento_movimiento_vista_form" model="ir.ui.view">
+  <field name="name">vehiculo.movimiento.form</field>
+  <field name="model">vehiculo.movimiento</field>
+  <field name="arch" type="xml">
+    <form string="Movimiento de Vehículo">
+      <sheet>
+        <group>
+          <field name="cliente_id"/>
+          <field name="vehiculo_id"/>
+          <field name="lugar_id"/>
+          <field name="fecha_entrada"/>
+          <field name="duracion"/>
+          <field name="fecha_salida" readonly="1"/>
+        </group>
+        <footer>
+          <button name="registrar_salida"
+                  string="Registrar salida"
+                  type="object"
+                  class="btn-primary"/>
+          <button string="Cancelar" class="btn-secondary" special="cancel"/>
+        </footer>
+      </sheet>
+    </form>
+  </field>
+ </record>
+
+  <record id="vista_estado_estacionamiento_list" model="ir.ui.view">
+    <field name="name">Lista Estado Estacionamiento</field>
+    <field name="model">estacionamiento.estado</field>
+    <field name="arch" type="xml">
+      <list string="Estados de Estacionamiento">
+        <field name="nombre"/>
+        <field name="total_lugares"/>
+        <field name="lugares_ocupados"/>
+      </list>
+    </field>
+  </record>
+
+  <record id="vista_estado_estacionamiento_form" model="ir.ui.view">
+   <field name="name">Formulario Estado Estacionamiento</field>
+   <field name="model">estacionamiento.estado</field>
+   <field name="arch" type="xml">
+      <form string="Estado del Estacionamiento">
+        <group>
+          <field name="nombre" readonly="1"/>
+          <field name="total_lugares" readonly="1"/>
+          <field name="lugares_ocupados" readonly="1"/>
+        </group>
+      </form>
+    </field>
+  </record>
+
+ <!--Menus-->
+
+
+  <menuitem  id="menu_estacionamiento" name="estacionamiento" />
+
+  <menuitem id="estacionamiento_cliente_menu"
+    name="Clientes"
+    parent="menu_estacionamiento"
+    action="estacionamiento_cliente_accion"
+    sequence="1"
+  />
+
+  <menuitem id="estacionamiento_vehiculo_menu"
+    name="Vehiculos"
+    parent="menu_estacionamiento"
+    action="estacionamiento_vehiculo_accion"
+    sequence="2"
+  />
+  <menuitem id="estacionamiento_lugar_menu"
+    name="Lugares"
+    parent="menu_estacionamiento"
+    action="estacionamiento_lugar_accion"
+  />
+
+  <menuitem id="estacionamiento_movimiento_menu"
+    name="Movimientos"
+    parent="menu_estacionamiento"
+    action="estacionamiento_movimiento_accion"
+  />
+
+  <menuitem id="menu_estado_ocupacion"
+    name="Estado General"
+    parent="menu_estacionamiento"
+    action="estado_estacionamiento_accion"
+  />        
+  
+</odoo>

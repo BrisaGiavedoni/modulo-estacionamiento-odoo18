@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+permiso_estacionamiento_cliente,estacionamiento_cliente,model_estacionamiento_cliente,base.group_user,1,1,1,1
+permiso_estacionamiento_vehiculo,estacionamiento_vehiculo,model_estacionamiento_vehiculo,base.group_user,1,1,1,1
+permiso_estacionamiento_lugar,estacionamiento_lugar,model_estacionamiento_lugar,base.group_user,1,1,1,1
+permiso_vehiculo_movimiento,vehiculo_movimiento,model_vehiculo_movimiento,base.group_user,1,1,1,1
+permiso_estacionamiento_estado,estacionamiento_estado,model_estacionamiento_estado,base.group_user,1,1,1,1
